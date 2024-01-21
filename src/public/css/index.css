@@ -38,3 +38,8 @@ button {
     border: none;
 
 }
+
+.attendance__start-grey {
+    color: darkgray;
+    background-color: #fff;
+}

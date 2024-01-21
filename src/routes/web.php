@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\RestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,14 @@ use App\Http\Controllers\AttendanceController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/', [AuthController::class, 'index']);
+    Route::post('/attendance/start', [AttendanceController::class, 'attendanceStart']);
+    Route::post('attendance/end', [AttendanceController::class, 'attendanceEnd']);
+    Route::post('/rest/start', [RestController::class, 'restStart']);
+    Route::post('/rest/end', [RestController::class, 'restEnd']);
 });
-Route::post('index', [AttendanceController::class, 'attendanceStart']);
+

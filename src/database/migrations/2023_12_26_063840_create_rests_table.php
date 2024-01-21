@@ -18,7 +18,7 @@ class CreateRestsTable extends Migration
             $table->unsignedBigInteger('work_id');
             $table->foreign('work_id')->references('id')->on('works')->onDelete('cascade');
             $table->time('start_break');
-            $table->time('end_break');
+            $table->time('end_break')->nullable();
             $table->timestamp('created_at')->useCurrent()->nullable();
             $table->timestamp('updated_at')->useCurrent()->nullable();
         });

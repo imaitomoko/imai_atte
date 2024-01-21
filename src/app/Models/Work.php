@@ -11,6 +11,14 @@ class Work extends Model
 
     protected $fillable = ['user_id', 'work_date', 'start_work', 'end_work'];
 
-    
+    public function user()
+    {
+        $this->belongsTo(User::class);
+    }
+
+    public function rest()
+    {
+        return $this->hasMany('App\Models\rest');
+    }
 
 }
