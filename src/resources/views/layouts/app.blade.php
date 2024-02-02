@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
   <link rel="stylesheet" href="{{ asset('css/common.css') }}">
   @yield('css')
+  
 </head>
 
 <body>
@@ -21,15 +22,15 @@
                 <ul class="header-nav">
                     @if (Auth::check())
                     <li class="header-nav__item">
-                        <a class="header-nav__home" href="/">ホーム</a>
+                        <a class="header-nav__button" href="/">ホーム</a>
                     </li>
                     <li class="header-nav__item">
-                        <a class="header-nav__attendance" href="/show" >日付一覧</a>
+                        <a class="header-nav__button" href="/show">日付一覧</a>
                     </li>
                     <li class="header-nav__item">
-                        <form class="header-nav__logout" action="/logout" method="post">
+                        <form class="header-nav" action="/logout" method="post">
                             @csrf
-                            <button class="header-nav__button">ログアウト</button>
+                            <button class="header-nav__button" type="submit">ログアウト</button>
                         </form>
                     </li>
                     @endif
