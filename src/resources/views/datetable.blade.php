@@ -9,7 +9,7 @@
     <div class="datetable-form__heading">
         <form action="/attendance" method="get">
             @csrf
-            <input type="date" name="date" />
+            <input type="text" name="date" value="<?php echo date('Y-m-d');?>" />
             <button type="submit">検索</button>
         </form>
     </div>
