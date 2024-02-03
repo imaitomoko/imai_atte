@@ -25,7 +25,7 @@
                         <a class="header-nav__button" href="/">ホーム</a>
                     </li>
                     <li class="header-nav__item">
-                        <a class="header-nav__button" href="/show">日付一覧</a>
+                        <a class="header-nav__button" href="/attendance">日付一覧</a>
                     </li>
                     <li class="header-nav__item">
                         <form class="header-nav" action="/logout" method="post">

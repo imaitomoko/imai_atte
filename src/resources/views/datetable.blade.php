@@ -16,7 +16,6 @@
 
     <div class="attendance-table">
         @if($items->count() > 0)
-        
         <table class="attendance-table__inner">
             <tr class="attendance-table__row">
                 <th class="attendance-table__header">名前</th>
@@ -34,12 +33,8 @@
                 <td class="attendance-table__item">サンプル</td>
             </tr>
             @endforeach
-            
         </table>
-        <div class="page">
-            {{ $items->links() }}
-        </div>
-        
+        {{ $items->links() }}
         @endif
     </div>
 </div>
