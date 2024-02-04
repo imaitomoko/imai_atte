@@ -1,5 +1,15 @@
 @extends('layouts.app')
-
+<style>
+td {
+    padding: 25px 40px;
+    text-align: center;
+}
+svg.w-5.h-5 {
+    /*paginateメソッドの矢印の大きさ調整のために追加*/
+    width: 30px;
+    height: 30px;
+}
+</style>
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/datetable.css') }}">
 @endsection
@@ -15,7 +25,6 @@
     </div>
 
     <div class="attendance-table">
-        @if($items->count() > 0)
         <table class="attendance-table__inner">
             <tr class="attendance-table__row">
                 <th class="attendance-table__header">名前</th>
@@ -35,7 +44,6 @@
             @endforeach
         </table>
         {{ $items->links() }}
-        @endif
     </div>
 </div>
 @endsection
