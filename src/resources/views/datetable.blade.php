@@ -17,11 +17,11 @@ svg.w-5.h-5 {
 @section('content')
 <div class="datetable__content">
     <div class="datetable-form__heading">
-        <form action="/attendance" method="get">
-            @csrf
-            <input type="text" name="date" value="<?php echo date('Y-m-d');?>" />
-            <button type="submit">検索</button>
-        </form>
+        <div class="flex-container">
+            <a class="date_before" href="/attendance/before"><<</a>
+        <p>{{ $date }}</p>
+        <a class="date_after" href="/attendance/after">>></a>
+        </div>
     </div>
 
     <div class="attendance-table">
@@ -38,7 +38,7 @@ svg.w-5.h-5 {
                 <td class="attendance-table__item">{{ $item->user->name }}</td>
                 <td class="attendance-table__item">{{ $item->start_work }}</td>
                 <td class="attendance-table__item">{{ $item->end_work }}</td>
-                <td class="attendance-table__item">サンプル</td>
+                <td class="attendance-table__item">{{ $totalBreakTime }}</td>
                 <td class="attendance-table__item">サンプル</td>
             </tr>
             @endforeach

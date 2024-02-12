@@ -18,10 +18,7 @@ class AttendanceController extends Controller
             'user_id' => $user->id,
             'work_date' => Carbon::now()->toDateString(),
             'start_work' => Carbon::now()->toTimeString(),
-          ]);
-
-          
-
+        ]);
         return view('index');
     }
 
@@ -32,19 +29,78 @@ class AttendanceController extends Controller
             $timeout->update([
             'end_work' => Carbon::now()->toTimeString(),
         ]);
-
         return view('index');
     }
 
-    public function result(Request $request){
-        $date = $request->input('date');
+    public function result(){
+        $date = Carbon::now()->toDateString();
         $user = auth()->user();
 
-        $items = Work::with(['user', 'rest'])
-        ->where('user_id', $user->id)
+        $items = Work::with(['user','rests'])
         ->whereDate('work_date', $date)
         ->Paginate(5);
-        return view('datetable', ['items' => $items]);
+        $totalBreakTime = 0;
 
+        foreach ($items as $item) {
+            foreach ($item->rests as $rest) {
+            $work = $rest->work;
+                if($work) {
+                $startTime = Carbon::parse($rest->start_break);
+                $endTime = Carbon::parse($rest->end_break);
+                $breakDuration = $endTime->diffInMinutes($startTime);
+                $totalBreakTime += $breakDuration;
+                }
+            }
+        }
+
+        return view('datetable', ['items'=> $items,'date'=> $date, 'totalBreakTime' => $totalBreakTime]);
+    }
+
+    public function getBefore()
+    {
+        $date = Carbon::parse()->subDay()->toDateString();
+
+        $items = Work::with(['user','rests'])
+        ->whereDate('work_date', $date)
+        ->Paginate(5);
+        $totalBreakTime = 0;
+
+        foreach ($items as $item) {
+            foreach ($item->rests as $rest) {
+            $work = $rest->work;
+                if($work) {
+                $startTime = Carbon::parse($rest->start_break);
+                $endTime = Carbon::parse($rest->end_break);
+                $breakDuration = $endTime->diffInMinutes($startTime);
+                $totalBreakTime += $breakDuration;
+                }
+            }
+        }
+
+        return view('datetable', ['items'=> $items,'date'=> $date, 'totalBreakTime' => $totalBreakTime]);
+    }
+
+    public function getAfter()
+    {
+        $date = Carbon::now()->addDay()->toDateString();
+
+        $items = Work::with(['user','rests'])
+        ->whereDate('work_date', $date)
+        ->Paginate(5);
+        $totalBreakTime = 0;
+
+        foreach ($items as $item) {
+            foreach ($item->rests as $rest) {
+            $work = $rest->work;
+                if($work) {
+                $startTime = Carbon::parse($rest->start_break);
+                $endTime = Carbon::parse($rest->end_break);
+                $breakDuration = $endTime->diffInMinutes($startTime);
+                $totalBreakTime += $breakDuration;
+                }
+            }
+        }
+
+        return view('datetable', ['items'=> $items,'date'=> $date, 'totalBreakTime' => $totalBreakTime]);
     }
 }

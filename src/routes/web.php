@@ -25,5 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/rest/start', [RestController::class, 'restStart']);
     Route::post('/rest/end', [RestController::class, 'restEnd']);
     Route::get('/attendance', [AttendanceController::class, 'result']);
+    Route::post('/attendance/before', [AttendanceController::class, 'getBefore']);
+    Route::post('/attendance/after', [AttendanceController::class, 'getafter']);
+    
 });
 

@@ -13,6 +13,6 @@ class Rest extends Model
 
     public function work()
     {
-        return $this->belongsTo(Work::class);
+        return $this->belongsTo(Work::class, 'work_id');
     }
 }

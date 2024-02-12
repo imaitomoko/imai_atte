@@ -42,8 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function work()
+    public function works()
     {
         return $this->hasMany(Work::class);
     }
 }
+
