@@ -18,9 +18,15 @@ svg.w-5.h-5 {
 <div class="datetable__content">
     <div class="datetable-form__heading">
         <div class="flex-container">
-            <a class="date_before" href="/attendance/before"><<</a>
-        <p>{{ $date }}</p>
-        <a class="date_after" href="/attendance/after">>></a>
+            <form class="form" action="/attendance/before" method="get">
+            @csrf
+            <button name="before" value="{{ $date }}"><<</button>
+            </form>
+            <p>{{ $date }}</p>
+            <form class="form" action="/attendance/after" method="get">
+            @csrf
+            <button name="after" value="{{ $date }}">>></button>
+            </form>
         </div>
     </div>
 

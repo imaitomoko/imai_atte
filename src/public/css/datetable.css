@@ -18,15 +18,15 @@
     align-items: center;
 }
 
-.flex-container a, .flex-container p {
+.flex-container button, .flex-container p {
     margin: 0;
     padding: 10px;
     font-size: 20px;
     font-weight: bold;
 }
 
-a {
-    text-decoration: none;
+button {
+    border: none;
 }
 
 .attendance-table {

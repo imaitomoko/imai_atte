@@ -56,9 +56,10 @@ class AttendanceController extends Controller
         return view('datetable', ['items'=> $items,'date'=> $date, 'totalBreakTime' => $totalBreakTime]);
     }
 
-    public function getBefore()
+    public function getBefore(Request $request)
     {
-        $date = Carbon::parse()->subDay()->toDateString();
+        $date = Carbon::parse($request->get('before'));
+        $date = $date->subDay()->toDateString();
 
         $items = Work::with(['user','rests'])
         ->whereDate('work_date', $date)
@@ -76,13 +77,13 @@ class AttendanceController extends Controller
                 }
             }
         }
-
         return view('datetable', ['items'=> $items,'date'=> $date, 'totalBreakTime' => $totalBreakTime]);
     }
 
-    public function getAfter()
+    public function getAfter(Request $request)
     {
-        $date = Carbon::now()->addDay()->toDateString();
+        $date = Carbon::parse($request->get('after'));
+        $date = $date->addDay()->toDateString();
 
         $items = Work::with(['user','rests'])
         ->whereDate('work_date', $date)
@@ -95,7 +96,7 @@ class AttendanceController extends Controller
                 if($work) {
                 $startTime = Carbon::parse($rest->start_break);
                 $endTime = Carbon::parse($rest->end_break);
-                $breakDuration = $endTime->diffInMinutes($startTime);
+                $breakDuration = $endTime->diff($startTime)->format('%h:%I:%S');
                 $totalBreakTime += $breakDuration;
                 }
             }
