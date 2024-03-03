@@ -37,6 +37,10 @@
     padding: 15px;
 }
 
+.header-nav__button .header-nav__form {
+    background-color: none;
+}
+
 footer {
     background: #fff;
     margin: 15px auto;

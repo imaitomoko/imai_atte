@@ -20,12 +20,12 @@ svg.w-5.h-5 {
         <div class="flex-container">
             <form class="form" action="/attendance/before" method="get">
             @csrf
-            <button name="before" value="{{ $date }}"><<</button>
+            <button class="button" name="before" value="{{ $date }}"><</button>
             </form>
             <p>{{ $date }}</p>
             <form class="form" action="/attendance/after" method="get">
             @csrf
-            <button name="after" value="{{ $date }}">>></button>
+            <button name="after" value="{{ $date }}">></button>
             </form>
         </div>
     </div>
@@ -41,10 +41,10 @@ svg.w-5.h-5 {
             </tr>
             @foreach($items as $item)
             <tr class="attendance-table__row">
-                <td class="attendance-table__item">{{ $item->user->name }}</td>
+                <td class="attendance-table__item">{{ $item->name }}</td>
                 <td class="attendance-table__item">{{ $item->start_work }}</td>
                 <td class="attendance-table__item">{{ $item->end_work }}</td>
-                <td class="attendance-table__item">{{ $totalBreakTime }}</td>
+                <td class="attendance-table__item">{{ $item->total_break_duration }}</td>
                 <td class="attendance-table__item">サンプル</td>
             </tr>
             @endforeach

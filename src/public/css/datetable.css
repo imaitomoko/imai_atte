@@ -25,10 +25,6 @@
     font-weight: bold;
 }
 
-button {
-    border: none;
-}
-
 .attendance-table {
     margin: 20px auto;
     width: 90%;
