@@ -45,7 +45,7 @@ svg.w-5.h-5 {
                 <td class="attendance-table__item">{{ $item->start_work }}</td>
                 <td class="attendance-table__item">{{ $item->end_work }}</td>
                 <td class="attendance-table__item">{{ $item->total_break_duration }}</td>
-                <td class="attendance-table__item">サンプル</td>
+                <td class="attendance-table__item">{{ $item->result }}</td>
             </tr>
             @endforeach
         </table>

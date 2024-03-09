@@ -40,36 +40,58 @@ class AttendanceController extends Controller
         $items = Work::whereDate('works.work_date', $date)
         ->join('users', 'works.user_id', '=', 'users.id')
         ->join('rests', 'works.id', '=', 'rests.work_id')
-        ->select('works.id', 'users.name', 'works.start_work', 'works.end_work', DB::raw('SUM(TIMESTAMPDIFF(SECOND, rests.start_break, rests.end_break)) AS total_break_duration'))
-        ->groupBy('works.id', 'users.name','works.start_work', 'works.end_work')
+        ->select(
+            'works.user_id', 
+            'works.id as work_id', //asとは別名
+            'users.name', 
+            'works.start_work',
+            'works.end_work', 
+            DB::raw('TIMESTAMPDIFF(SECOND, works.start_work, works.end_work) AS work_duration'),
+            DB::raw('SUM(TIMESTAMPDIFF(SECOND, rests.start_break, rests.end_break)) AS total_break_duration'))
+        ->groupBy('works.user_id','works.id', 'users.name','works.start_work', 'works.end_work')
         ->Paginate(5);
+
+        foreach ($items as $item) {
+            $workDuration = $item->work_duration;
+            $totalDuration = $item->total_break_duration;
+            $result = $item->result;
+            $result = $workDuration - $totalDuration;
+            $item->total_break_duration = gmdate('H:i:s',$totalDuration);
+            $item->result = gmdate('H:i:s',$result);
+        }
 
         return view('datetable', ['items'=> $items,'date'=> $date]);
     }
-
 
     public function getBefore(Request $request)
     {
         $date = Carbon::parse($request->get('before'));
         $date = $date->subDay()->toDateString();
 
-        $items = Work::with(['user','rests'])
-        ->whereDate('work_date', $date)
+         $items = Work::whereDate('works.work_date', $date)
+        ->join('users', 'works.user_id', '=', 'users.id')
+        ->join('rests', 'works.id', '=', 'rests.work_id')
+        ->select(
+            'works.user_id', 
+            'works.id as work_id', //asとは別名
+            'users.name', 
+            'works.start_work',
+            'works.end_work', 
+            DB::raw('TIMESTAMPDIFF(SECOND, works.start_work, works.end_work) AS work_duration'),
+            DB::raw('SUM(TIMESTAMPDIFF(SECOND, rests.start_break, rests.end_break)) AS total_break_duration'))
+        ->groupBy('works.user_id','works.id', 'users.name','works.start_work', 'works.end_work')
         ->Paginate(5);
-        $totalBreakTime = 0;
 
         foreach ($items as $item) {
-            foreach ($item->rests as $rest) {
-            $work = $rest->work;
-                if($work) {
-                $startTime = Carbon::parse($rest->start_break);
-                $endTime = Carbon::parse($rest->end_break);
-                $breakDuration = $endTime->diffInMinutes($startTime);
-                $totalBreakTime += $breakDuration;
-                }
-            }
+            $workDuration = $item->work_duration;
+            $totalDuration = $item->total_break_duration;
+            $result = $item->result;
+            $result = $workDuration - $totalDuration;
+            $item->total_break_duration = gmdate('H:i:s',$totalDuration);
+            $item->result = gmdate('H:i:s',$result);
         }
-        return view('datetable', ['items'=> $items,'date'=> $date, 'totalBreakTime' => $totalBreakTime]);
+
+        return view('datetable', ['items'=> $items,'date'=> $date]);
     }
 
     public function getAfter(Request $request)
@@ -77,23 +99,29 @@ class AttendanceController extends Controller
         $date = Carbon::parse($request->get('after'));
         $date = $date->addDay()->toDateString();
 
-        $items = Work::with(['user','rests'])
-        ->whereDate('work_date', $date)
+        $items = Work::whereDate('works.work_date', $date)
+        ->join('users', 'works.user_id', '=', 'users.id')
+        ->join('rests', 'works.id', '=', 'rests.work_id')
+        ->select(
+            'works.user_id', 
+            'works.id as work_id', //asとは別名
+            'users.name', 
+            'works.start_work',
+            'works.end_work', 
+            DB::raw('TIMESTAMPDIFF(SECOND, works.start_work, works.end_work) AS work_duration'),
+            DB::raw('SUM(TIMESTAMPDIFF(SECOND, rests.start_break, rests.end_break)) AS total_break_duration'))
+        ->groupBy('works.user_id','works.id', 'users.name','works.start_work', 'works.end_work')
         ->Paginate(5);
-        $totalBreakTime = 0;
 
         foreach ($items as $item) {
-            foreach ($item->rests as $rest) {
-            $work = $rest->work;
-                if($work) {
-                $startTime = Carbon::parse($rest->start_break);
-                $endTime = Carbon::parse($rest->end_break);
-                $breakDuration = $endTime->diff($startTime)->format('%h:%I:%S');
-                $totalBreakTime += $breakDuration;
-                }
-            }
+            $workDuration = $item->work_duration;
+            $totalDuration = $item->total_break_duration;
+            $result = $item->result;
+            $result = $workDuration - $totalDuration;
+            $item->total_break_duration = gmdate('H:i:s',$totalDuration);
+            $item->result = gmdate('H:i:s',$result);
         }
 
-        return view('datetable', ['items'=> $items,'date'=> $date, 'totalBreakTime' => $totalBreakTime]);
+        return view('datetable', ['items'=> $items,'date'=> $date]);
     }
 }
