@@ -39,7 +39,7 @@ class AttendanceController extends Controller
 
         $items = Work::whereDate('works.work_date', $date)
         ->join('users', 'works.user_id', '=', 'users.id')
-        ->join('rests', 'works.id', '=', 'rests.work_id')
+        ->leftJoin('rests', 'works.id', '=', 'rests.work_id') //leftJoin（外部結合）でrests.work_idに値がなくてもwork.idを表示　  rightJoinでrests.work_idが基準
         ->select(
             'works.user_id', 
             'works.id as work_id', //asとは別名
@@ -70,7 +70,7 @@ class AttendanceController extends Controller
 
          $items = Work::whereDate('works.work_date', $date)
         ->join('users', 'works.user_id', '=', 'users.id')
-        ->join('rests', 'works.id', '=', 'rests.work_id')
+        ->leftJoin('rests', 'works.id', '=', 'rests.work_id')
         ->select(
             'works.user_id', 
             'works.id as work_id', //asとは別名
@@ -101,7 +101,7 @@ class AttendanceController extends Controller
 
         $items = Work::whereDate('works.work_date', $date)
         ->join('users', 'works.user_id', '=', 'users.id')
-        ->join('rests', 'works.id', '=', 'rests.work_id')
+        ->leftJoin('rests', 'works.id', '=', 'rests.work_id')
         ->select(
             'works.user_id', 
             'works.id as work_id', //asとは別名
