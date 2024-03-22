@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class AuthController extends Controller
 {
@@ -11,6 +12,12 @@ class AuthController extends Controller
         return view('index');
     }
 
-    
+    public function user()
+    {
+        $users = Auth::user()
+        ->Paginate(5);
+
+        return view('user',compact('users'));
+    }
 
 }

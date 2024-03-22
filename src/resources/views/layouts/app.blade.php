@@ -22,6 +22,9 @@
                 <ul class="header-nav">
                     @if (Auth::check())
                     <li class="header-nav__item">
+                        <a href="/user">ユーザー一覧</a>
+                    </li>
+                    <li class="header-nav__item">
                         <a href="/">ホーム</a>
                     </li>
                     <li class="header-nav__item">
