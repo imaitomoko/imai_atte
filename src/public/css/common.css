@@ -37,8 +37,10 @@
     padding: 15px;
 }
 
-.header-nav__button .header-nav__form {
-    background-color: none;
+.header-nav__button .header-nav__form{
+    border: none;
+    outline: none;
+    background: transparent;
 }
 
 footer {

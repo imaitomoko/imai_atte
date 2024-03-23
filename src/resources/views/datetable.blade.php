@@ -10,6 +10,7 @@ svg.w-5.h-5 {
     height: 30px;
 }
 </style>
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/datetable.css') }}">
 @endsection
@@ -25,7 +26,7 @@ svg.w-5.h-5 {
             <p>{{ $date }}</p>
             <form class="form" action="/attendance/after" method="get">
             @csrf
-            <button name="after" value="{{ $date }}">></button>
+            <button class="button" name="after" value="{{ $date }}">></button>
             </form>
         </div>
     </div>
@@ -49,7 +50,9 @@ svg.w-5.h-5 {
             </tr>
             @endforeach
         </table>
-        {{ $items->links() }}
+        <div class="paginate">
+            {{ $items->links() }}
+        </div>
     </div>
 </div>
 @endsection

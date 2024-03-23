@@ -18,11 +18,17 @@
     align-items: center;
 }
 
-.flex-container button, .flex-container p {
+.flex-container .form .button {
     margin: 0;
     padding: 10px;
     font-size: 20px;
     font-weight: bold;
+}
+
+p{
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0 10px;
 }
 
 .attendance-table {
@@ -52,6 +58,7 @@
     width: 20%;
 }
 
-.page {
-    margin-top: 15px;
+.paginate {
+    text-align: center;
 }
+

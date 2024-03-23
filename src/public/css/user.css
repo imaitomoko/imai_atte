@@ -35,7 +35,15 @@
     font-weight: bold;
 }
 
+.index_button{
+    cursor: pointer;
+}
+
 .user-table__item {
     padding: 20px;
     width: 20%;
+}
+
+.paginate {
+    text-align: center;
 }
