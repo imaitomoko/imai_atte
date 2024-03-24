@@ -28,5 +28,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/attendance/before',[AttendanceController::class, 'getBefore']);
     Route::get('/attendance/after', [AttendanceController::class, 'getAfter']);
     Route::get('/user', [AuthController::class, 'user']);
+    Route::get('/user/userpage', [AttendanceController::class, 'userPage']);
 });
 

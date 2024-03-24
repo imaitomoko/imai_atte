@@ -23,7 +23,7 @@ svg.w-5.h-5 {
             @csrf
             <button class="button" name="before" value="{{ $date }}"><</button>
             </form>
-            <p>{{ $date }}</p>
+            <h2>{{ $date }}</h2>
             <form class="form" action="/attendance/after" method="get">
             @csrf
             <button class="button" name="after" value="{{ $date }}">></button>

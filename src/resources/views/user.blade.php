@@ -28,12 +28,10 @@ svg.w-5.h-5 {
             </tr>
             @foreach($users as $user)
             <tr class="user-table__row">
-                <form action="">
                     <td class="user-table__item">{{ $user->name }}</td>
                     <td class="user-table__item">
-                        <button class="index_button" type="submit">一覧</button>
+                        <a class="index_button" href="/user/userpage?name={{ urlencode($user->name) }}">一覧</a>
                     </td>
-                </form>
             </tr>
             @endforeach
         </table>

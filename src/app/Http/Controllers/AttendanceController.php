@@ -68,7 +68,7 @@ class AttendanceController extends Controller
         $date = Carbon::parse($request->get('before'));
         $date = $date->subDay()->toDateString();
 
-         $items = Work::whereDate('works.work_date', $date)
+        $items = Work::whereDate('works.work_date', $date)
         ->join('users', 'works.user_id', '=', 'users.id')
         ->leftJoin('rests', 'works.id', '=', 'rests.work_id')
         ->select(
@@ -123,5 +123,15 @@ class AttendanceController extends Controller
         }
 
         return view('datetable', ['items'=> $items,'date'=> $date]);
+    }
+
+    public function userPage(Request $request)
+    {
+        $username = $request->input('name');
+        $user = User::where('name', $username)->first();
+
+        
+
+        return view('userpage', ['user'=> $user]);
     }
 }
