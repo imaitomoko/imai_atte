@@ -22,10 +22,30 @@
     cursor: pointer;
 }
 
+.header-nav__button {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 15px;
+    margin: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 18px;
+    text-align: center;
+}
+
 .header-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    list-style: none;
+    padding: 0;
+}
+
+.header-nav__item {
+    margin-right: 10px;
 }
 
 .header-nav__item a {
@@ -33,14 +53,8 @@
     color: #000;
     font-weight: bold;
     cursor: pointer;
-    justify-content: space-between;
     padding: 15px;
-}
-
-.header-nav__button .header-nav__form{
-    border: none;
-    outline: none;
-    background: transparent;
+    font-size: 18px;
 }
 
 footer {

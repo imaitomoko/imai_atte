@@ -1,15 +1,5 @@
 @extends('layouts.app')
-<style>
-td {
-    padding: 25px 40px;
-    text-align: center;
-}
-svg.w-5.h-5 {
-    /*paginateメソッドの矢印の大きさ調整のために追加*/
-    width: 30px;
-    height: 30px;
-}
-</style>
+
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/user.css') }}">
 @endsection
@@ -35,7 +25,7 @@ svg.w-5.h-5 {
             </tr>
             @endforeach
         </table>
-        <div class="paginate">
+         <div class="paginate">
             {{ $users->links() }}
         </div>
     </div>

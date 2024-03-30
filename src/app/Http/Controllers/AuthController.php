@@ -15,7 +15,7 @@ class AuthController extends Controller
     public function user()
     {
         $users = Auth::user()
-        ->Paginate(5);
+        ->paginate(5);
 
         return view('user',compact('users'));
     }

@@ -130,8 +130,34 @@ class AttendanceController extends Controller
         $username = $request->input('name');
         $user = User::where('name', $username)->first();
 
-        
+         if ($user === null) {
+        // ユーザーが見つからない場合の処理を記述する
+        return view('userpage', ['message' => 'User not found.']);
+    }
 
-        return view('userpage', ['user'=> $user]);
+        $items = Work::where('works.user_id', $user->id)
+        ->join('users', 'works.user_id', '=', 'users.id')
+        ->leftJoin('rests', 'works.id', '=', 'rests.work_id')
+        ->select(
+            'works.user_id', 
+            'works.id as work_id', //asとは別名
+            'works.work_date',
+            'works.start_work',
+            'works.end_work', 
+            DB::raw('TIMESTAMPDIFF(SECOND, works.start_work, works.end_work) AS work_duration'),
+            DB::raw('SUM(TIMESTAMPDIFF(SECOND, rests.start_break, rests.end_break)) AS total_break_duration'))
+        ->groupBy('works.user_id','works.id', 'works.work_date','works.start_work', 'works.end_work')
+        ->Paginate(5);
+
+        foreach ($items as $item) {
+            $workDuration = $item->work_duration;
+            $totalDuration = $item->total_break_duration;
+            $result = $item->result;
+            $result = $workDuration - $totalDuration;
+            $item->total_break_duration = gmdate('H:i:s',$totalDuration);
+            $item->result = gmdate('H:i:s',$result);
+        }
+
+        return view('userpage', ['user'=> $user, 'items'=> $items]);
     }
 }

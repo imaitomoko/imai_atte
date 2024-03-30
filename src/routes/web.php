@@ -18,7 +18,8 @@ use App\Http\Controllers\RestController;
 
 
 
-Route::middleware('auth')->group(function () {
+
+Route::middleware(['auth'])->group(function () {
     Route::get('/', [AuthController::class, 'index']);
     Route::post('/attendance/start', [AttendanceController::class, 'attendanceStart']);
     Route::post('attendance/end', [AttendanceController::class, 'attendanceEnd']);

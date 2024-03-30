@@ -1,15 +1,4 @@
 @extends('layouts.app')
-<style>
-td {
-    padding: 25px 40px;
-    text-align: center;
-}
-svg.w-5.h-5 {
-    /*paginateメソッドの矢印の大きさ調整のために追加*/
-    width: 30px;
-    height: 30px;
-}
-</style>
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/userpage.css') }}">
@@ -18,7 +7,7 @@ svg.w-5.h-5 {
 @section('content')
 <div class="userpage__content">
     <div class="userpage-form__heading">
-        <h2>{{ $user->name }}</h2>
+        <h2>{{ $user ->name ?? '' }}</h2>
     </div>
 
     <div class="userpage-table">
@@ -30,17 +19,19 @@ svg.w-5.h-5 {
                 <th class="userpage-table__header">休憩時間</th>
                 <th class="userpage-table__header">勤務時間</th>
             </tr>
-           
+            @foreach($items ?? [] as $item)
             <tr class="userpage-table__row">
-                <td class="userpage-table__item">サンプル</td>
-                <td class="userpage-table__item">サンプル</td>
-                <td class="userpage-table__item">サンプル</td>
-                <td class="userpage-table__item">サンプル</td>
-                <td class="userpage-table__item">サンプル</td>
+                <td class="userpage-table__item">{{ $item->work_date ?? '' }}</td>
+                <td class="userpage-table__item">{{ $item->start_work ?? '' }}</td>
+                <td class="userpage-table__item">{{ $item->end_work ?? '' }}</td>
+                <td class="userpage-table__item">{{ $item->total_break_duration ?? '' }}</td>
+                <td class="userpage-table__item">{{ $item->result ?? '' }}</td>
             </tr>
-           
+            @endforeach
         </table>
-       
+        <div class="paginate">
+            {{ $items->links() ?? '' }}
+        </div>
     </div>
 </div>
 @endsection

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atte</title>
-    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}"/>
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     @yield('css')
 </head>
@@ -30,9 +30,9 @@
                         <a href="/attendance">日付一覧</a>
                     </li>
                     <li class="header-nav__item">
-                        <form class="header-nav__form" action="/logout" method="post">
+                        <form method="post" action="/logout">
                             @csrf
-                            <button class="header-nav__button" type="submit">ログアウト</button>
+                            <button class="header-nav__button">ログアウト</button>
                         </form>
                     </li>
                     @endif
