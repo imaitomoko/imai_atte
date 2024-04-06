@@ -43,5 +43,9 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($email . $request->ip());
         });
 
+        //Fortify::registerView(function (Request $request) {
+        //    return view('auth.verify-email');
+        //});
+
     }
 }

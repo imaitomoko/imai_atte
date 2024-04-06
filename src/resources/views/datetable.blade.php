@@ -40,7 +40,7 @@
             @endforeach
         </table>
         <div class="paginate">
-            {{ $items->links() }}
+            {{ $items->appends(request()->except('page'))->links() }}
         </div>
     </div>
 </div>

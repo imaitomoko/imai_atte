@@ -33,8 +33,8 @@ class AttendanceController extends Controller
         return view('index');
     }
 
-    public function result(){
-        $date = Carbon::now()->toDateString();
+    public function result(Request $request){
+        $date = $request->get('date',Carbon::now()->toDateString());
         $user = auth()->user();
 
         $items = Work::whereDate('works.work_date', $date)
@@ -49,7 +49,7 @@ class AttendanceController extends Controller
             DB::raw('TIMESTAMPDIFF(SECOND, works.start_work, works.end_work) AS work_duration'),
             DB::raw('SUM(TIMESTAMPDIFF(SECOND, rests.start_break, rests.end_break)) AS total_break_duration'))
         ->groupBy('works.user_id','works.id', 'users.name','works.start_work', 'works.end_work')
-        ->Paginate(5);
+        ->paginate(5);
 
         foreach ($items as $item) {
             $workDuration = $item->work_duration;
@@ -72,6 +72,7 @@ class AttendanceController extends Controller
         ->join('users', 'works.user_id', '=', 'users.id')
         ->leftJoin('rests', 'works.id', '=', 'rests.work_id')
         ->select(
+            'works.work_date',
             'works.user_id', 
             'works.id as work_id', //asとは別名
             'users.name', 
